@@ -3,15 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Lookup</title>
-    <link href="output.css" rel="stylesheet">
+    <title>Product List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for the modal */
+        #product-modal.hidden {
+            display: none;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center w-full max-w-md">
-        <h1 class="text-2xl font-bold mb-4">Product Lookup</h1>
-        <input type="text" id="productCode" class="w-full p-2 border border-gray-300 rounded mb-4" placeholder="Enter the product code" onkeypress="checkEnter(event)">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="lookupProduct()">Search</button>
-        <div id="productInfo" class="mt-4 text-left"></div>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto max-w-6xl bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-900">Product List</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="search-input" placeholder="Search..." class="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="overflow-x-auto">
+            <table id="product-table" class="min-w-full bg-white border border-gray-300 rounded-md shadow-md">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-600">
+                        <th class="py-3 px-4 text-left text-sm font-semibold whitespace-nowrap">Fina Code</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold whitespace-nowrap">Acumatica Code</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold whitespace-nowrap">Principal Code</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold">Item Description</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold">Status</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold">Details</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative">
+            <!-- Close Button -->
+            <button id="close-modal" class="absolute top-2 right-4 text-gray-600 hover:text-gray-900 text-2xl">
+                &times;
+            </button>
+            
+            <!-- Modal Content -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Product Image -->
+                <div class="col-span-1 flex justify-center">
+                    <img id="modal-image" src="" alt="Product Image" class="w-full h-auto object-cover rounded-md shadow-lg">
+                </div>
+                
+                <!-- Product Details -->
+                <div class="col-span-2">
+                    <h2 id="modal-name" class="text-3xl font-bold mb-4 text-gray-800">Product Name</h2>
+                    <p id="modal-item-desc" class="text-gray-600 mb-4">Item Description</p>
+                    <p id="modal-price" class="text-lg font-semibold text-blue-600 mb-4">Price</p>
+
+                    <!-- Additional Info -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <p class="text-sm text-gray-500"><strong>Group:</strong> <span id="modal-group">Group Name</span></p>
+                        <p class="text-sm text-gray-500"><strong>KP:</strong> <span id="modal-kp">KP Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Supplier:</strong> <span id="modal-supplier">Supplier Name</span></p>
+                        <p class="text-sm text-gray-500"><strong>Lead Time:</strong> <span id="modal-lead-time">Lead Time Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Loading Capacity:</strong> <span id="modal-loading-capacity">Loading Capacity Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Storage:</strong> <span id="modal-storage">Storage Condition</span></p>
+                        <p class="text-sm text-gray-500"><strong>Gramasi:</strong> <span id="modal-gramasi">Gramasi Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Status:</strong> <span id="modal-status">Status Value</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
