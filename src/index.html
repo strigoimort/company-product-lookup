@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Lookup</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4">Product Lookup</h1>
+        <input type="text" id="productCode" class="w-full p-2 border border-gray-300 rounded mb-4" placeholder="Enter the product code" onkeypress="checkEnter(event)">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="lookupProduct()">Search</button>
+        <div id="productInfo" class="mt-4 text-left"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

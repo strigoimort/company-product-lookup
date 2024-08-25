@@ -1,0 +1,80 @@
+/* Reset dasar untuk menghilangkan margin dan padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Mengatur font dan latar belakang */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Gaya untuk kontainer utama */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+}
+
+/* Gaya untuk input */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Gaya untuk tombol */
+button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #4cae4c; /* Mengubah warna saat hover */
+}
+
+/* Gaya untuk informasi produk */
+.product-info {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    display: none; /* Sembunyikan awalnya */
+    width: 100%; /* Lebar penuh sesuai dengan kontainer */
+    overflow: hidden; /* Sembunyikan bagian yang tidak terlihat */
+}
+
+
+/* Menampilkan informasi produk jika ada */
+.product-info p {
+    margin: 5px 0;
+}
+
+/* Menampilkan info jika produk ditemukan */
+.product-info.show {
+    display: block;
+}
+
+/* Gaya untuk key */
+.key {
+    font-weight: bold;
+    color: #007BFF; /* Warna untuk kunci */
+}

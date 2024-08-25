@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for the modal */
+        #product-modal.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto max-w-6xl bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-900">Product List</h1>
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="search-input" placeholder="Search..." class="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="overflow-x-auto">
+            <table id="product-table" class="min-w-full bg-white border border-gray-300 rounded-md shadow-md">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-600">
+                        <th class="py-3 px-4 text-left text-sm font-semibold whitespace-nowrap">Fina Code</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold whitespace-nowrap">Acumatica Code</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold whitespace-nowrap">Principal Code</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold">Item Description</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold">Status</th>
+                        <th class="py-3 px-4 text-left text-sm font-semibold">Details</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative">
+            <!-- Close Button -->
+            <button id="close-modal" class="absolute top-2 right-4 text-gray-600 hover:text-gray-900 text-2xl">
+                &times;
+            </button>
+            
+            <!-- Modal Content -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Product Image -->
+                <div class="col-span-1 flex justify-center">
+                    <img id="modal-image" src="" alt="Product Image" class="w-full h-auto object-cover rounded-md shadow-lg">
+                </div>
+                
+                <!-- Product Details -->
+                <div class="col-span-2">
+                    <h2 id="modal-name" class="text-3xl font-bold mb-4 text-gray-800">Product Name</h2>
+                    <p id="modal-item-desc" class="text-gray-600 mb-4">Item Description</p>
+                    <p id="modal-price" class="text-lg font-semibold text-blue-600 mb-4">Price</p>
+
+                    <!-- Additional Info -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <p class="text-sm text-gray-500"><strong>Group:</strong> <span id="modal-group">Group Name</span></p>
+                        <p class="text-sm text-gray-500"><strong>KP:</strong> <span id="modal-kp">KP Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Supplier:</strong> <span id="modal-supplier">Supplier Name</span></p>
+                        <p class="text-sm text-gray-500"><strong>Lead Time:</strong> <span id="modal-lead-time">Lead Time Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Loading Capacity:</strong> <span id="modal-loading-capacity">Loading Capacity Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Storage:</strong> <span id="modal-storage">Storage Condition</span></p>
+                        <p class="text-sm text-gray-500"><strong>Gramasi:</strong> <span id="modal-gramasi">Gramasi Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Status:</strong> <span id="modal-status">Status Value</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadProducts() {
+            try {
+                const response = await fetch('data.json');
+                const products = await response.json();
+
+                // Mengelompokkan produk berdasarkan nilai KP
+                const groupedProducts = products.reduce((acc, product) => {
+                    if (!acc[product.kp]) {
+                        acc[product.kp] = [];
+                    }
+                    acc[product.kp].push(product);
+                    return acc;
+                }, {});
+
+                const tbody = document.querySelector('#product-table tbody');
+
+                Object.keys(groupedProducts).forEach(kp => {
+                    const group = groupedProducts[kp];
+
+                    // Tambahkan baris grup untuk KP
+                    const groupRow = document.createElement('tr');
+                    groupRow.classList.add('bg-gray-200', 'font-semibold');
+                    groupRow.innerHTML = `
+                        <td colspan="6" class="py-3 px-4 text-sm">${kp}</td>
+                    `;
+                    tbody.appendChild(groupRow);
+
+                    // Tambahkan baris produk untuk setiap grup
+                    group.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.classList.add('border-b', 'border-gray-300', 'hover:bg-gray-50');
+
+                        const statusColorClass = product.status === 'Active' ? 'text-blue-500' : 'text-red-500';
+
+                        row.innerHTML = `
+                            <td class="py-3 px-4 text-sm">${product.kode_pl}</td>
+                            <td class="py-3 px-4 text-sm">${product.kode_acm}</td>
+                            <td class="py-3 px-4 text-sm">${product.kode_pcp}</td>
+                            <td class="py-3 px-4 text-sm">${product.item_desc}</td>
+                            <td class="py-3 px-4 text-sm">
+                                <span class="${statusColorClass}">${product.status}</span>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-center">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600" 
+                                    onclick="showDetails('${product.group}', '${product.kp}', '${product.supplier}', 
+                                    '${product.lead_time}', '${product.loading_capacity}', '${product.storage}', 
+                                    '${product.gramasi}', '${product.kode_pl}', '${product.item_desc}', 
+                                    '${product.image || 'images/default.jpg'}', '${product.price || 'No price'}', '${product.status}')">Details</button>
+                            </td>
+                        `;
+
+                        tbody.appendChild(row);
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        function showDetails(group, kp, supplier, leadTime, loadingCapacity, storage, gramasi, name, description, image, price, status) {
+        // Mengisi modal dengan data produk
+        document.getElementById('modal-name').textContent = name;
+        document.getElementById('modal-item-desc').textContent = description;
+        document.getElementById('modal-price').textContent = price ? `IDR ${price}` : 'No price'; // Menambahkan IDR sebagai currency
+        document.getElementById('modal-image').src = image;
+        document.getElementById('modal-group').textContent = group;
+        document.getElementById('modal-kp').textContent = kp;
+        document.getElementById('modal-supplier').textContent = supplier;
+        document.getElementById('modal-lead-time').textContent = leadTime;
+        document.getElementById('modal-loading-capacity').textContent = loadingCapacity;
+        document.getElementById('modal-storage').textContent = storage;
+        document.getElementById('modal-gramasi').textContent = gramasi;
+        document.getElementById('modal-status').textContent = status; // Menampilkan status
+
+        // Menampilkan modal
+        document.getElementById('product-modal').classList.remove('hidden');
+    }
+
+
+        // Menutup modal
+        document.getElementById('close-modal').onclick = function() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // Menutup modal ketika mengklik di luar modal
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('product-modal')) {
+                document.getElementById('product-modal').classList.add('hidden');
+            }
+        }
+
+        // Event listener untuk kolom pencarian
+        document.getElementById('search-input').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#product-table tbody tr:not(.bg-gray-200)');
+            rows.forEach(row => {
+                const itemDesc = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+                if (itemDesc.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Memuat produk setelah halaman selesai dimuat
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>
