@@ -41,7 +41,7 @@
     <div id="product-modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative">
             <!-- Close Button -->
-            <button id="close-modal" class="absolute top-2 right-4 text-gray-600 hover:text-gray-900 text-2xl">
+            <button id="close-modal" aria-label="Close Modal" class="absolute top-2 right-4 text-gray-600 hover:text-gray-900 text-2xl">
                 &times;
             </button>
             
@@ -49,7 +49,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Product Image -->
                 <div class="col-span-1 flex justify-center">
-                    <img id="modal-image" src="" alt="Product Image" class="w-full h-auto object-cover rounded-md shadow-lg">
+                    <img id="modal-image" src="placeholder.png" alt="Product Image" class="w-full h-auto object-cover rounded-md shadow-lg">
                 </div>
                 
                 <!-- Product Details -->
@@ -61,12 +61,12 @@
                     <!-- Additional Info -->
                     <div class="grid grid-cols-2 gap-4">
                         <p class="text-sm text-gray-500"><strong>Group:</strong> <span id="modal-group">Group Name</span></p>
-                        <p class="text-sm text-gray-500"><strong>KP:</strong> <span id="modal-kp">KP Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Product:</strong> <span id="modal-kp">KP Value</span></p>
                         <p class="text-sm text-gray-500"><strong>Supplier:</strong> <span id="modal-supplier">Supplier Name</span></p>
                         <p class="text-sm text-gray-500"><strong>Lead Time:</strong> <span id="modal-lead-time">Lead Time Value</span></p>
-                        <p class="text-sm text-gray-500"><strong>Loading Capacity:</strong> <span id="modal-loading-capacity">Loading Capacity Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Origin:</strong> <span id="modal-country">Country Value</span></p>
                         <p class="text-sm text-gray-500"><strong>Storage:</strong> <span id="modal-storage">Storage Condition</span></p>
-                        <p class="text-sm text-gray-500"><strong>Gramasi:</strong> <span id="modal-gramasi">Gramasi Value</span></p>
+                        <p class="text-sm text-gray-500"><strong>Net Weight:</strong> <span id="modal-gramasi">Gramasi Value</span></p>
                         <p class="text-sm text-gray-500"><strong>Status:</strong> <span id="modal-status">Status Value</span></p>
                     </div>
                 </div>

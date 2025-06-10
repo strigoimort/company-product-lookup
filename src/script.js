@@ -44,7 +44,7 @@ async function loadProducts() {
                     <td class="py-3 px-4 text-sm text-center">
                         <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600" 
                             onclick="showDetails('${product.group}', '${product.kp}', '${product.supplier}', 
-                            '${product.lead_time}', '${product.loading_capacity}', '${product.storage}', 
+                            '${product.lead_time}', '${product.country}', '${product.storage}', 
                             '${product.gramasi}', '${product.kode_pl}', '${product.item_desc}', 
                             '${product.image || 'images/default.jpg'}', '${product.price || 'No price'}', '${product.status}')">Details</button>
                     </td>
@@ -58,7 +58,7 @@ async function loadProducts() {
     }
 }
 
-function showDetails(group, kp, supplier, leadTime, loadingCapacity, storage, gramasi, name, description, image, price, status) {
+function showDetails(group, kp, supplier, leadTime, country, storage, gramasi, name, description, image, price, status) {
 // Mengisi modal dengan data produk
 document.getElementById('modal-name').textContent = name;
 document.getElementById('modal-item-desc').textContent = description;
@@ -67,10 +67,10 @@ document.getElementById('modal-image').src = image;
 document.getElementById('modal-group').textContent = group;
 document.getElementById('modal-kp').textContent = kp;
 document.getElementById('modal-supplier').textContent = supplier;
-document.getElementById('modal-lead-time').textContent = leadTime;
-document.getElementById('modal-loading-capacity').textContent = loadingCapacity;
+document.getElementById('modal-lead-time').textContent = `${leadTime} days`;
+document.getElementById('modal-country').textContent = country;
 document.getElementById('modal-storage').textContent = storage;
-document.getElementById('modal-gramasi').textContent = gramasi;
+document.getElementById('modal-gramasi').textContent = `${parseFloat(gramasi).toFixed(2)} kg`;
 document.getElementById('modal-status').textContent = status; // Menampilkan status
 
 // Menampilkan modal

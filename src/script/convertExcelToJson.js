@@ -1,5 +1,6 @@
 const xlsx = require('xlsx');
 const fs = require('fs');
+const path = require('path');
 
 // Baca file Excel (ganti 'data.xlsx' dengan nama file Excel kamu)
 const workbook = xlsx.readFile('./src/data/master.xlsx');
@@ -9,5 +10,6 @@ const sheet_name_list = workbook.SheetNames;
 const jsonData = xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
 
 // Simpan JSON ke file
+const outputPath = path.join(__dirname, '../src/data/data.json');
 fs.writeFileSync('data.json', JSON.stringify(jsonData, null, 2), 'utf-8');
 console.log('Excel data has been converted to JSON and saved to data.json');
