@@ -2,7 +2,7 @@ const xlsx = require('xlsx');
 const fs = require('fs');
 
 // Baca file Excel (ganti 'data.xlsx' dengan nama file Excel kamu)
-const workbook = xlsx.readFile('master_data.xlsx');
+const workbook = xlsx.readFile('./src/data/master.xlsx');
 const sheet_name_list = workbook.SheetNames;
 
 // Konversi sheet pertama ke JSON

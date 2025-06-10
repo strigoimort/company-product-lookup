@@ -1,7 +1,7 @@
 
 async function loadProducts() {
     try {
-        const response = await fetch('data.json');
+        const response = await fetch('./data/data.json');
         const products = await response.json();
 
         // Mengelompokkan produk berdasarkan nilai KP
@@ -102,6 +102,16 @@ document.getElementById('search-input').addEventListener('input', function() {
             row.style.display = 'none';
         }
     });
+});
+
+// Menutup modal saat tombol Esc ditekan
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('product-modal');
+        if (!modal.classList.contains('hidden')) {
+            modal.classList.add('hidden');
+        }
+    }
 });
 
 // Memuat produk setelah halaman selesai dimuat
